@@ -5,6 +5,8 @@ import { MongoEventStore } from './event-store/mongo-event-store';
 import { EventStorePublisher } from './event-store/publishers/event-store.publisher';
 import { Event, EventSchema } from './event-store/schemas/event.schema';
 import { EventSerializer } from './event-store/serializers/event.serializer';
+import { EventsBridge } from 'src/shared/infrastructure/event-store/events-bridge';
+import { EventDeserializer } from 'src/shared/infrastructure/event-store/deserializers/event.deserializer';
 
 @Module({
   imports: [
@@ -13,6 +15,12 @@ import { EventSerializer } from './event-store/serializers/event.serializer';
       EVENT_STORE_CONNECTION,
     ),
   ],
-  providers: [EventSerializer, EventStorePublisher, MongoEventStore],
+  providers: [
+    EventSerializer,
+    EventStorePublisher,
+    MongoEventStore,
+    EventsBridge,
+    EventDeserializer,
+  ],
 })
 export class SharedInfrastructureModule {}
